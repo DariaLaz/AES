@@ -128,6 +128,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AdvancedEncryptionStandard.cpp" />
+    <ClCompile Include="Decrypt.cpp" />
+    <ClCompile Include="Encrypt.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Decrypt.h" />
+    <ClInclude Include="Encrypt.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
