@@ -12,12 +12,13 @@ void Rotate(char* row) {
     return;
 }
 //Sub Word
+//Used also for BYTE SUBSTITUTION
 void SubstituteSBox(char &element) {
     element = element 
-              ^ (element < 1) 
-              ^ (element < 2)
-              ^ (element < 3)
-              ^ (element < 4)
+              ^ (element << 1) 
+              ^ (element << 2)
+              ^ (element << 3)
+              ^ (element << 4)
               ^ 99;
 }
 //Round constants
@@ -46,17 +47,43 @@ void EncryptRijndaelKeyShedule(char key[4][4]) {
         }
     }
 }
+
+//ADD ROUND KEY
+void AddRoundKey(char key[4][4], char text[4][4]) {
+    for (size_t row = 0; row < 4; row++)
+    {
+        for (size_t col = 0; col < 4; col++)
+        {
+            text[row][col] = (text[row][col] + key[row][col]);
+        }
+    }
+}
+
+//BYTE SUBSTITUTION
+void ByteSubstitution(char text[4][4]) {
+    for (size_t row = 0; row < 4; row++)
+    {
+        for (size_t col = 0; col < 4; col++)
+        {
+            SubstituteSBox(text[row][col]);
+        }
+    }
+}
+
 void EncryptCurrentMatrix(char text[4][4], char key[4][4]) {
     char result = ' ';
 
+    
+    //3. Add Round Key
+    AddRoundKey(key, text);
     //2. Key Expansion
     EncryptRijndaelKeyShedule(key);
-    //3. Add Round Key
 
 
     for (size_t i = 0; i < 9; i++)
     {
-        
+        //4. Byte substitution
+        ByteSubstitution(text);
         //
     }
     //char*** keyMatrix = EncryptRijndaelKeyShedule(key);
@@ -68,7 +95,16 @@ void EncryptCurrentMatrix(char text[4][4], char key[4][4]) {
 //    std::cout << result;
 //}
 
-
+void PrintMatrix(char arr[4][4]) {
+    for (size_t i = 0; i < 4; i++)
+    {
+        for (size_t j = 0; j < 4; j++)
+        {
+            std::cout << arr[i][j];
+        }
+        std::cout << std::endl;
+    }
+}
 int main()
 {
     /*char text[4][4] = { 'm', 'y', ' ', 't',
@@ -81,4 +117,3 @@ int main()
                        'r', 'i', 'a', 'l' };
     Encrypt(text, key);*/
 }
-
