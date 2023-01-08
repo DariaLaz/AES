@@ -17,26 +17,18 @@ char* MatrixToCharArray(char text[4][4]) {
     return result;
 }
 
-void PrintMatrix(int key[4][4]) {
-    for (size_t i = 0; i < 4; i++)
-    {
-        for (size_t j = 0; j < 4; j++)
-        {
-            std::cout << (int)key[i][j] << " ";
-        }
-        std::cout << std::endl;
-    }
-}
+
 
 
 int main()
 {
 
-   /* char text[4][4] = { 'm', 'y', ' ', 't',
+  /* char text[4][4] = { 'm', 'y', ' ', 't',
                         'e', 'x', 't', ' ',
                         'i', 's', ' ', 'n',
                         'i', 'c', 'e', '.' };
-    char key[4][4] = { 'e', 'x', 't', 'r',
+
+     char key[4][4] = { 'e', 'x', 't', 'r',
                        'a', 't', 'e', 'r',
                        'r', 'e', 's', 't',
                        'r', 'i', 'a', 'l' };
@@ -45,17 +37,21 @@ int main()
                              1, 1, 2, 3,
                              3, 1, 1, 2 };
     EncryptCurrentMatrix(text, key, keyMatrix);*/
-
+    int text[4][4] = { 101, 120, 116, 114,
+                       97, 116, 101, 114,
+                       114, 101, 115, 116,
+                       114, 105, 97, 108 };
+    int keyMatrix[4][4] = { 2, 3, 1, 1,
+                            1, 2, 3, 1,
+                            1, 1, 2, 3,
+                            3, 1, 1, 2 };
     int key[4][4] = { 101, 120, 116, 114,
                        97, 116, 101, 114,
                        114, 101, 115, 116,
                        114, 105, 97, 108 };
     PrintMatrix(key);
     std::cout << "-----------------------" << std::endl;
-    EncryptRijndaelKeyShedule(key);
-    PrintMatrix(key);
-    std::cout << "-----------------------" << std::endl;
-    DecryptRijndaelKeyShedule(key);
+    EncryptCurrentMatrix(text,key, keyMatrix);
     PrintMatrix(key);
 
     /*char a[4] = {1, 2, 3, 4};
