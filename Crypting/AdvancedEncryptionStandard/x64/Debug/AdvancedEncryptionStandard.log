@@ -1,0 +1,3 @@
+﻿  Encrypt.cpp
+E:\SU\I курс\I семестър\Увод в програмирането\практикум\Проект\AES\AES\Crypting\AdvancedEncryptionStandard\Encrypt.cpp(88,37): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  AdvancedEncryptionStandard.vcxproj -> E:\SU\I курс\I семестър\Увод в програмирането\практикум\Проект\AES\AES\Crypting\x64\Debug\AdvancedEncryptionStandard.exe
