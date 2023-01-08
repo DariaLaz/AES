@@ -15,6 +15,8 @@ void ReversedShiftElements(int row[4], int count);
 void ReversedShiftRows(int text[4][4]);
 
 //REVERSED MIXING COLUMNS
-void MatrixDivision(int text[4][4], int keyMatrix[4][4]);
+void ReversedMixSingleColumn(int col[4]);
+void ReversedMixColumns(int text[4][4]);
+
 
 void DecryptCurrentMatrix(int text[4][4], int key[4][4]);

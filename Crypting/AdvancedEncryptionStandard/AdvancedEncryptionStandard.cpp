@@ -22,6 +22,8 @@ char* MatrixToCharArray(char text[4][4]) {
 
 int main()
 {
+    char* text;
+
 
   /* char text[4][4] = { 'm', 'y', ' ', 't',
                         'e', 'x', 't', ' ',
@@ -37,40 +39,20 @@ int main()
                              1, 1, 2, 3,
                              3, 1, 1, 2 };
     EncryptCurrentMatrix(text, key, keyMatrix);*/
-    int text[4][4] = { 101, 120, 116, 114,
-                       97, 116, 101, 114,
-                       114, 101, 115, 116,
-                       114, 105, 97, 108 };
-    int keyMatrix[4][4] = { 2, 3, 1, 1,
-                            1, 2, 3, 1,
-                            1, 1, 2, 3,
-                            3, 1, 1, 2 };
-    int key[4][4] = { 101, 120, 116, 114,
-                       97, 116, 101, 114,
-                       114, 101, 115, 116,
-                       114, 105, 97, 108 };
-    PrintMatrix(text);
-    std::cout << "-----------------------" << std::endl;
-    EncryptCurrentMatrix(text,key);
-    PrintMatrix(text);
-    std::cout << "-----------------------" << std::endl;
-    DecryptCurrentMatrix(text, key);
-    PrintMatrix(text);
-    std::cout << "-----------------------" << std::endl;
-
-    /*char a[4] = {1, 2, 3, 4};
-    std::cout << a[0] << a[1] << a[2] << a[3] << std::endl;
-
-    Rotate(a);
-    std::cout << a[0] << a[1]<< a[2]<< a[3] << std::endl;
-    ReverseRotate(a);
-    std::cout << a[0] << a[1] << a[2] << a[3] << std::endl;*/
-  /*  int a = 120;
-    std::cout << a << std::endl;
-
-    SubstituteSBox(a);
-    std::cout << a << std::endl;
-    InverseSBox(a);
-    std::cout << a << std::endl;*/
-
+    //int text[4][4] = { 101, 120, 116, 114,
+    //                   97, 116, 101, 114,
+    //                   114, 103, 115, 116,
+    //                   114, 105, 97, 108 };
+    //int key[4][4] = { 101, 120, 116, 114,
+    //                   97, 116, 101, 114,
+    //                   114, 101, 115, 116,
+    //                   114, 105, 97, 108 };
+    //PrintMatrix(text);
+    //std::cout << "-----------------------" << std::endl;
+    //EncryptCurrentMatrix(text,key);
+    //PrintMatrix(text);
+    //std::cout << "-----------------------" << std::endl;
+    //DecryptCurrentMatrix(text, key);
+    //PrintMatrix(text);
+    //std::cout << "-----------------------" << std::endl;
 }

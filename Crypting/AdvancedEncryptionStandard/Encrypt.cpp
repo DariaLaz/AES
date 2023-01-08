@@ -100,52 +100,55 @@ void ShiftRows(int text[4][4]) {
 }
 
 //MIXING COLUMNS
-void MixSingleCol(int col[4]) {
-    char a[4], b[4], h;
-    for (size_t i = 0; i < 4; i++)
+void MixSingleColumn(int m1[4]) {
+    int m2[4][4] = { 2, 3, 1, 1,
+                     1, 2, 3, 1,
+                     1, 1, 2, 3,
+                     3, 1, 1, 2 };
+    for (size_t row = 0; row < 4; row++)
     {
-        a[i] = col[i];
-        h = (unsigned char)((signed char)col[i] >> 7);
-        b[i] = col[i] << 1;
-        b[i] ^= 0x1B & h; /* Rijndael's Galois field */
+        int currentResult = 0;
+        for (size_t col = 0; col < 4; col++)
+        {
+            currentResult ^= (m1[row] + m2[row][col]);
+        }
+        m1[row] ^= (currentResult);
     }
-    col[0] = b[0] ^ a[3] ^ a[2] ^ b[1] ^ a[1]; 
-    col[1] = b[1] ^ a[0] ^ a[3] ^ b[2] ^ a[2]; 
-    col[2] = b[2] ^ a[1] ^ a[0] ^ b[3] ^ a[3]; 
-    col[3] = b[3] ^ a[2] ^ a[1] ^ b[0] ^ a[0]; 
 }
 void MixColumns(int text[4][4]) {
+    
     for (size_t i = 0; i < 4; i++)
     {
-        MixSingleCol(text[i]);
+        MixSingleColumn(text[i]);
     }
 }
 
 void EncryptCurrentMatrix(int text[4][4], int key[4][4]) {
-    //3. Add Round Key
-    AddRoundKey(key, text);
-    KeyExpansion(key, 0);
+    ////3. Add Round Key
+    //AddRoundKey(key, text);
+    ////2. Key Expansion
+    //KeyExpansion(key, 0);
 
-    for (size_t i = 0; i < 9; i++)
-    {
-        ////4. Byte substitution
-        //ByteSubstitution(text);
-        ////5. Shift Rows
-        //ShiftRows(text);
-        ////6. Mixing columns
-        //MixColumns(text);
-        ////2. Key Expansion
-        //EncryptRijndaelKeyShedule(key);
-        //3. Add Round Key
-        AddRoundKey(key, text);
-        //2. Key Expansion
-        KeyExpansion(key, i + 1);
-    }
+    //for (size_t i = 0; i < 9; i++)
+    //{
+    //    //4. Byte substitution
+    //    ByteSubstitution(text);
+    //    //5. Shift Rows
+    //    ShiftRows(text);
+    //    //6. Mixing columns
+    //    MixColumns(text);
+    //    //3. Add Round Key
+    //    AddRoundKey(key, text);
+    //    //2. Key Expansion
+    //    KeyExpansion(key, i + 1);
+    //}
     ////4. Byte substitution
     //ByteSubstitution(text);
     ////5. Shift Rows
     //ShiftRows(text);
     ////3. Add Round Key
-    AddRoundKey(key, text);
+    //AddRoundKey(key, text);
+    MixColumns(text);
+
 }
 

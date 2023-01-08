@@ -61,7 +61,7 @@ void ReverseKeyExtension(int key[4][4], int round = -1) {
     {
         if (round != -1)
         {
-            key[i][0] ^= rcons[9 - round];
+            key[i][0] ^= rcons[round];
         }
         ReversedShiftElements(key[i], 1);
 
@@ -113,38 +113,54 @@ void ReversedShiftRows(int text[4][4]) {
 }
 
 //REVERSED MIXING COLUMNS
-void MatrixDivision(int text[4][4], int keyMatrix[4][4]) {
-
+void ReversedMixSingleColumn(int m1[4]) {
+    int m2[4][4] = { 2, 3, 1, 1,
+                     1, 2, 3, 1,
+                     1, 1, 2, 3,
+                     3, 1, 1, 2 };
+    for (size_t row = 0; row < 4; row++)
+    {
+        int currentResult = 0;
+        for (size_t col = 0; col < 4; col++)
+        {
+            currentResult ^= (m1[row] - m2[row][col]);
+        }
+        m1[row] ^= (currentResult);
+    }
+}
+void ReversedMixColumns(int text[4][4]) {
+    for (size_t i = 0; i < 4; i++)
+    {
+        ReversedMixSingleColumn(text[i]);
+    }
 }
 
 void DecryptCurrentMatrix(int text[4][4], int key[4][4]) {
     ////Remove Key
-    RemoveRoundKey(key, text);
-    ReverseKeyExtension(key, 0);
+    //RemoveRoundKey(key, text);
     ////Unshift Rows
     //ReversedShiftRows(text);
     ////Rev Byte Substitution
     //ReversedByteSubstitution(text);
 
-    for (size_t i = 0; i < 9; i++)
-    {
-    //    //Reverse Rijndael key shedule
-    //   // DecryptRijndaelKeyShedule(key);
-        //Remove Key
-        RemoveRoundKey(key, text);
-        //Reversed Key Expansion
-        ReverseKeyExtension(key, i + 1);
+    //for (size_t i = 0; i < 9; i++)
+    //{
+    //    //Reversed Key Expansion
+    //    ReverseKeyExtension(key, 9-i);
+    //    //Remove Key
+    //    RemoveRoundKey(key, text);
+    //    //Mix colums
 
-    ////Mix colums
-
-    ////Unshift Rows
-
-    ////Byte Subst
-    //
-    }
-
-    //Remove Key
-    RemoveRoundKey(key, text);
+    //    //Unshift Rows
+    //    ReversedShiftRows(text);
+    //    //Byte Subst
+    //    ReversedByteSubstitution(text);
+    //}
+    ////Reversed Key Expansion
+    //ReverseKeyExtension(key, 0);
+    ////Remove Key
+    //RemoveRoundKey(key, text);
+    ReversedMixColumns(text);
 }
 
 
