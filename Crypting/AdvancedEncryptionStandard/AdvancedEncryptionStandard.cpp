@@ -51,8 +51,12 @@ int main()
                        114, 105, 97, 108 };
     PrintMatrix(key);
     std::cout << "-----------------------" << std::endl;
-    EncryptCurrentMatrix(text,key, keyMatrix);
+    EncryptCurrentMatrix(text,key);
     PrintMatrix(key);
+    std::cout << "-----------------------" << std::endl;
+    DecryptCurrentMatrix(text, key);
+    PrintMatrix(key);
+    std::cout << "-----------------------" << std::endl;
 
     /*char a[4] = {1, 2, 3, 4};
     std::cout << a[0] << a[1] << a[2] << a[3] << std::endl;
