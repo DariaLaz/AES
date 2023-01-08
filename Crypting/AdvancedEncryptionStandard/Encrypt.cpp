@@ -1,7 +1,6 @@
 #include "Encrypt.h"
-#include <iostream>
 
-//RIJNDAEL KEY SHEDULE/EXPANSION
+//KEY SHEDULE/EXPANSION
 //Rot Word
 static const int SBoxEncrypt[256] =
 { 0x63, 0x7c, 0x77, 0x7b, 0xf2, 0x6b, 0x6f, 0xc5, 0x30, 0x01, 0x67, 0x2b, 0xfe, 0xd7, 0xab, 0x76,
@@ -20,8 +19,6 @@ static const int SBoxEncrypt[256] =
   0x70, 0x3e, 0xb5, 0x66, 0x48, 0x03, 0xf6, 0x0e, 0x61, 0x35, 0x57, 0xb9, 0x86, 0xc1, 0x1d, 0x9e,
   0xe1, 0xf8, 0x98, 0x11, 0x69, 0xd9, 0x8e, 0x94, 0x9b, 0x1e, 0x87, 0xe9, 0xce, 0x55, 0x28, 0xdf,
   0x8c, 0xa1, 0x89, 0x0d, 0xbf, 0xe6, 0x42, 0x68, 0x41, 0x99, 0x2d, 0x0f, 0xb0, 0x54, 0xbb, 0x16 };
-
-
 void Rotate(int* row) {
     int first = row[0];
     for (size_t i = 0; i < 3; i++)
@@ -31,7 +28,6 @@ void Rotate(int* row) {
     row[3] = first;
     return;
 }
-
 //Sub Word
 //Used also for BYTE SUBSTITUTION
 void SubstituteSBox(int& element) {
@@ -47,6 +43,19 @@ void EncryptRijndaelKeyShedule(int key[4][4]) {
         }
     }
 }
+void KeyExpansion(int key[4][4], int round = -1) {
+    int rcons[10] = { 1, 2, 4, 8, 16, 32, 64, 128, 27, 54 };
+    EncryptRijndaelKeyShedule(key);
+    
+    for (size_t i = 0; i < 4; i++)
+    {
+        ShiftElements(key[i], 1);
+        if (round != -1)
+        {
+            key[i][0] ^= rcons[round];
+        }
+    }
+}
 
 //ADD ROUND KEY
 void AddRoundKey(int key[4][4], int text[4][4]) {
@@ -54,8 +63,9 @@ void AddRoundKey(int key[4][4], int text[4][4]) {
     {
         for (size_t col = 0; col < 4; col++)
         {
-            text[row][col] = (text[row][col] + key[row][col]);
+            text[row][col] ^= key[row][col];
         }
+        
     }
 }
 
@@ -75,9 +85,9 @@ void ShiftElements(int row[4], int count) {
     for (size_t i = 0; i < count; i++)
     {
         int last = row[3];
-        for (size_t j = 1; j <= 3; j++)
+        for (size_t j = 3; j >= 1; j--)
         {
-            row[i] = row[i + 1];
+            row[j] = row[j - 1];
         }
         row[0] = last;
     }
@@ -111,42 +121,31 @@ void MixColumns(int text[4][4]) {
     }
 }
 
-
-void PrintMatrix(int key[4][4]) {
-    for (size_t i = 0; i < 4; i++)
-    {
-        for (size_t j = 0; j < 4; j++)
-        {
-            std::cout << (int)key[i][j] << " ";
-        }
-        std::cout << std::endl;
-    }
-}
-
 void EncryptCurrentMatrix(int text[4][4], int key[4][4]) {
-    ////3. Add Round Key
-    //AddRoundKey(key, text);
-    ////2. Key Expansion
-    //EncryptRijndaelKeyShedule(key);
-
-    //for (size_t i = 0; i < 9; i++)
-    //{
-    //    //4. Byte substitution
-    //    ByteSubstitution(text);
-    //    //5. Shift Rows
-    //    ShiftRows(text);
-    //    //6. Mixing columns
-    //    MixColumns(text);
-    //    //3. Add Round Key
-    //    AddRoundKey(key, text);
-    //    //2. Key Expansion
-    //    EncryptRijndaelKeyShedule(key);
-    //}
-    //4. Byte substitution
-    //ByteSubstitution(text);
-    //5. Shift Rows
-    ShiftRows(text);
     //3. Add Round Key
-    //AddRoundKey(key, text);
+    AddRoundKey(key, text);
+    KeyExpansion(key, 0);
+
+    for (size_t i = 0; i < 9; i++)
+    {
+        ////4. Byte substitution
+        //ByteSubstitution(text);
+        ////5. Shift Rows
+        //ShiftRows(text);
+        ////6. Mixing columns
+        //MixColumns(text);
+        ////2. Key Expansion
+        //EncryptRijndaelKeyShedule(key);
+        //3. Add Round Key
+        AddRoundKey(key, text);
+        //2. Key Expansion
+        KeyExpansion(key, i + 1);
+    }
+    ////4. Byte substitution
+    //ByteSubstitution(text);
+    ////5. Shift Rows
+    //ShiftRows(text);
+    ////3. Add Round Key
+    AddRoundKey(key, text);
 }
 

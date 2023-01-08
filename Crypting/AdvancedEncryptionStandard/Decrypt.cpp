@@ -1,4 +1,16 @@
 #include "Decrypt.h"
+#include <iostream>
+
+void PrintMatrix(int key[4][4]) {
+    for (size_t i = 0; i < 4; i++)
+    {
+        for (size_t j = 0; j < 4; j++)
+        {
+            std::cout << (int)key[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
+}
 
 //REVERSED RIJNDAEL KEY SHEDULE/EXPANSION
 static const int SBoxDecrypt[256] = {
@@ -20,7 +32,7 @@ static const int SBoxDecrypt[256] = {
     0x17, 0x2b, 0x04, 0x7e, 0xba, 0x77, 0xd6, 0x26, 0xe1, 0x69, 0x14, 0x63, 0x55, 0x21, 0x0c, 0x7d };
 
 void ReverseRotate(int* row) {
-    char last = row[3];
+    int last = row[3];
     for (size_t i = 3; i >= 1; i--)
     {
         row[i] = row[i - 1];
@@ -42,13 +54,30 @@ void DecryptRijndaelKeyShedule(int key[4][4]) {
     }
 }
 
+void ReverseKeyExtension(int key[4][4], int round = -1) {
+    int rcons[10] = { 1, 2, 4, 8, 16, 32, 64, 128, 27, 54 };
+
+    for (size_t i = 0; i < 4; i++)
+    {
+        if (round != -1)
+        {
+            key[i][0] ^= rcons[9 - round];
+        }
+        ReversedShiftElements(key[i], 1);
+
+    }
+    DecryptRijndaelKeyShedule(key);
+}
+
+
+
 //REMOVE ROUND KEY
 void RemoveRoundKey(int key[4][4], int text[4][4]) {
     for (size_t row = 0; row < 4; row++)
     {
         for (size_t col = 0; col < 4; col++)
         {
-            text[row][col] = (text[row][col]- key[row][col]);
+            text[row][col] = (text[row][col] ^ key[row][col]);
         }
     }
 }
@@ -68,12 +97,12 @@ void ReversedByteSubstitution(int text[4][4]) {
 void ReversedShiftElements(int row[4], int count) {
     for (size_t i = 0; i < count; i++)
     {
-        char last = row[3];
-        for (size_t i = 3; i > 1; i--)
+        int first = row[0];
+        for (size_t j = 0; j < 3; j++)
         {
-            row[i] = row[i - 1];
+            row[j] = row[j + 1];
         }
-        row[0] = last;
+        row[3] = first;
     }
 }
 void ReversedShiftRows(int text[4][4]) {
@@ -89,31 +118,33 @@ void MatrixDivision(int text[4][4], int keyMatrix[4][4]) {
 }
 
 void DecryptCurrentMatrix(int text[4][4], int key[4][4]) {
-    //Remove Key
-    //RemoveRoundKey(key, text);
-    //Unshift Rows
-    ReversedShiftRows(text);
-    //Rev Byte Substitution
+    ////Remove Key
+    RemoveRoundKey(key, text);
+    ReverseKeyExtension(key, 0);
+    ////Unshift Rows
+    //ReversedShiftRows(text);
+    ////Rev Byte Substitution
     //ReversedByteSubstitution(text);
 
-    //for (size_t i = 0; i < 9; i++)
-    //{
-    //Reverse Rijndael key shedule
+    for (size_t i = 0; i < 9; i++)
+    {
+    //    //Reverse Rijndael key shedule
+    //   // DecryptRijndaelKeyShedule(key);
+        //Remove Key
+        RemoveRoundKey(key, text);
+        //Reversed Key Expansion
+        ReverseKeyExtension(key, i + 1);
+
+    ////Mix colums
+
+    ////Unshift Rows
+
+    ////Byte Subst
+    //
+    }
 
     //Remove Key
-
-    //Mix colums
-
-    //Unshift Rows
-
-    //Byte Subst
-    
-    //}
-
-    //Reverse Rijndael key shedule
-
-    //Remove Key
-
+    RemoveRoundKey(key, text);
 }
 
 
