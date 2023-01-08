@@ -17,8 +17,21 @@ char* MatrixToCharArray(char text[4][4]) {
     return result;
 }
 
+void PrintMatrix(int key[4][4]) {
+    for (size_t i = 0; i < 4; i++)
+    {
+        for (size_t j = 0; j < 4; j++)
+        {
+            std::cout << (int)key[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
+}
+
+
 int main()
 {
+
    /* char text[4][4] = { 'm', 'y', ' ', 't',
                         'e', 'x', 't', ' ',
                         'i', 's', ' ', 'n',
@@ -32,10 +45,32 @@ int main()
                              1, 1, 2, 3,
                              3, 1, 1, 2 };
     EncryptCurrentMatrix(text, key, keyMatrix);*/
-    char a = (char)12;
-    std::cout << (int)a << std::endl;
+
+    int key[4][4] = { 101, 120, 116, 114,
+                       97, 116, 101, 114,
+                       114, 101, 115, 116,
+                       114, 105, 97, 108 };
+    PrintMatrix(key);
+    std::cout << "-----------------------" << std::endl;
+    EncryptRijndaelKeyShedule(key);
+    PrintMatrix(key);
+    std::cout << "-----------------------" << std::endl;
+    DecryptRijndaelKeyShedule(key);
+    PrintMatrix(key);
+
+    /*char a[4] = {1, 2, 3, 4};
+    std::cout << a[0] << a[1] << a[2] << a[3] << std::endl;
+
+    Rotate(a);
+    std::cout << a[0] << a[1]<< a[2]<< a[3] << std::endl;
+    ReverseRotate(a);
+    std::cout << a[0] << a[1] << a[2] << a[3] << std::endl;*/
+  /*  int a = 120;
+    std::cout << a << std::endl;
+
     SubstituteSBox(a);
-    std::cout << (int)a << std::endl;
+    std::cout << a << std::endl;
     InverseSBox(a);
-    std::cout << (int)(a);
+    std::cout << a << std::endl;*/
+
 }
