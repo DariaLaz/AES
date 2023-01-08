@@ -1,6 +1,7 @@
 ﻿#include <iostream>
 #include "Encrypt.h"
 #include "Decrypt.h"
+#include "InputOutputFormat.h"
 
 
 char* MatrixToCharArray(char text[4][4]) {
@@ -22,7 +23,30 @@ char* MatrixToCharArray(char text[4][4]) {
 
 int main()
 {
-    char* text;
+    //Input
+    std::string text;
+    std::cin >> text;/*
+    PKCS7(text);
+    std::cout << GetStringLen(text) << std::endl;
+    std::cout << (text);*/
+
+    int* result[4][4];
+    int matrixes = 0;
+
+    int* result[4][4] = SeparateTextIntoMatrixes(text);
+
+    for (size_t i = 0; i < matrixes; i++)
+    {
+        for (size_t row = 0; row < 4; row++)
+        {
+            for (size_t col = 0; col < 4; col++)
+            {
+                std::cout << result[i][row][col] << " ";
+            }
+            std::cout << std::endl;
+        }
+    }
+
 
 
   /* char text[4][4] = { 'm', 'y', ' ', 't',

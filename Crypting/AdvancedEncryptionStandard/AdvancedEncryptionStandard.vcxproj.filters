@@ -24,12 +24,18 @@
     <ClCompile Include="Decrypt.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="InputOutputFormat.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Encrypt.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Decrypt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="InputOutputFormat.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
