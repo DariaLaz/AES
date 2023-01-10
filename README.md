@@ -18,7 +18,7 @@ Then 9 iterations the following:
 
 4. Byte substitution
 5. Shift Rows
-6. Mixing colums
+6. Mixing columns
 3. Adding round key
 2. Key Expansion
 
