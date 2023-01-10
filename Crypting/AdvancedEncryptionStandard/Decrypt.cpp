@@ -92,6 +92,7 @@ void RemoveRoundKey(int key[4][4], int text[4][4]) {
 void ReversedByteSubstitution(int text[4][4]) {
     for (size_t row = 0; row < 4; row++)
     {
+
         for (size_t col = 0; col < 4; col++)
         {
             InverseSBox(text[row][col]);

@@ -9,3 +9,6 @@ void CharArrToIntMatrix(char* text, int matrix[4][4]);
 void KeyToIntMatrix(char* key, int intKey[4][4]);
 void IntMatrixToCharArray(int* decryted, char* result, int size);
 void clearConsole();
+void IntMatrixToIntArray(int matrix[4][4], int* arr);
+void CharArrayToIntMatric(int matrix[4][4], char* arr);
+bool IsEncryptionInput();

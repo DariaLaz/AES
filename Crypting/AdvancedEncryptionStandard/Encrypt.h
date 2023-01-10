@@ -1,7 +1,5 @@
 #pragma once
 
-void PrintMatrix(int key[4][4]);
-
 //KEY SHEDULE/EXPANSION
 void Rotate(int* row);
 void SubstituteSBox(int& element);

@@ -103,3 +103,40 @@ void clearConsole() {
 	std::cout << "\033[J"; // Clears the console
 }
 
+void IntMatrixToIntArray(int matrix[4][4], int* arr) {
+	int i = 0;
+	for (size_t row = 0; row < 4; row++)
+	{
+		for (size_t col = 0; col < 4; col++)
+		{
+			arr[i] = matrix[row][col];
+			i++;
+		}
+	}
+}
+void CharArrayToIntMatric(int matrix[4][4], char* arr) {
+	int i = 0;
+	for (size_t row = 0; row < 4; row++)
+	{
+		for (size_t col = 0; col < 4; col++)
+		{
+			matrix[row][col] = arr[i];
+			i++;
+		}
+	}
+}
+bool IsEncryptionInput() {
+	int action;
+	std::cout << "Select action: (enter 1 or 2)" << std::endl << " 1. Encryption" << std::endl << " 2. Decryption";
+	std::cin >> action;
+	while (action != 1 && action != 2)
+	{
+		std::cout << "Invalid input. Try again! ";
+		std::cin >> action;
+	}
+	if (action == 2)
+	{
+		return false;
+	}
+	return true;
+}
