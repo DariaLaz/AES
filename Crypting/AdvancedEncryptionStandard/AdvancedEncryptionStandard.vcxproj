@@ -130,11 +130,13 @@
     <ClCompile Include="AdvancedEncryptionStandard.cpp" />
     <ClCompile Include="Decrypt.cpp" />
     <ClCompile Include="Encrypt.cpp" />
+    <ClCompile Include="FilesManager.cpp" />
     <ClCompile Include="InputOutputFormat.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Decrypt.h" />
     <ClInclude Include="Encrypt.h" />
+    <ClInclude Include="FilesManager.h" />
     <ClInclude Include="InputOutputFormat.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

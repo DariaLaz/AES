@@ -1,0 +1,14 @@
+﻿  AdvancedEncryptionStandard.cpp
+E:\SU\I курс\I семестър\Увод в програмирането\практикум\Проект\AES\AES\Crypting\AdvancedEncryptionStandard\AdvancedEncryptionStandard.cpp(113,44): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  Decrypt.cpp
+E:\SU\I курс\I семестър\Увод в програмирането\практикум\Проект\AES\AES\Crypting\AdvancedEncryptionStandard\Decrypt.cpp(102,45): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+E:\SU\I курс\I семестър\Увод в програмирането\практикум\Проект\AES\AES\Crypting\AdvancedEncryptionStandard\Decrypt.cpp(140,35): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  Encrypt.cpp
+E:\SU\I курс\I семестър\Увод в програмирането\практикум\Проект\AES\AES\Crypting\AdvancedEncryptionStandard\Encrypt.cpp(103,37): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+E:\SU\I курс\I семестър\Увод в програмирането\практикум\Проект\AES\AES\Crypting\AdvancedEncryptionStandard\Encrypt.cpp(148,32): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  InputOutputFormat.cpp
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+  All 38 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  AdvancedEncryptionStandard.vcxproj -> E:\SU\I курс\I семестър\Увод в програмирането\практикум\Проект\AES\AES\Crypting\x64\Release\AdvancedEncryptionStandard.exe

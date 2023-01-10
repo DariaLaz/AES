@@ -1,7 +1,19 @@
+/**
+*
+* Solution to course project #2
+* Introduction to programming course
+* Faculty of Mathematics and Informatics of Sofia University
+* Winter semester 2022/2023
+*
+* @author Daria Lazarova
+* @idnumber 8MI0600140
+* @compiler VC
+*
+* <file with functions related with the encrypting algorithm>
+*
+*/
+
 #include "Encrypt.h"
-#include <iostream>
-
-
 
 //KEY SHEDULE/EXPANSION
 //Rot Word

@@ -1,82 +1,34 @@
-﻿#include <iostream>
+﻿/**
+*
+* Solution to course project #2
+* Introduction to programming course
+* Faculty of Mathematics and Informatics of Sofia University
+* Winter semester 2022/2023
+*
+* @author Daria Lazarova
+* @idnumber 8MI0600140
+* @compiler VC
+*
+* <main cpp file>
+*
+*/
+
+#include <iostream>
 #include "Encrypt.h"
 #include "Decrypt.h"
 #include "InputOutputFormat.h"
+#include "FilesManager.h"
 
-void PrintMatrix(int key[16]) {
-    for (size_t i = 0; i < 4; i++)
-    {
-        std::cout << key[i] << " ";
-    }
-}
+const int BUFFER_SIZE = 1024;
 
-void PrintMatrix(int key[4][4]) {
-    for (size_t i = 0; i < 4; i++)
-    {
-        for (size_t j = 0; j < 4; j++)
-        {
-            std::cout << (int)key[i][j] << " ";
-        }
-        std::cout << std::endl;
-    }
-}
-
-
-
-
-//void EncryptOrDecryptTheWholeText(int* intText, int key[4][4], bool IsEncryption, int* result, int size) {
-//    int resIndex = 0;
-//    for (size_t i = 0; i < size; i+=16)
-//    {
-//        int currentMatrix[4][4];
-//        if (IsEncryption)
-//        {
-//            int el = 0;
-//            for (size_t row = 0; row < 4; row++)
-//            {
-//                for (size_t col = 0; col < 4; col++)
-//                {
-//                    currentMatrix[row][col] = intText[i + el];
-//                    el++;
-//                }
-//            }
-//            EncryptCurrentMatrix(currentMatrix, key);
-//        }
-//        else
-//        {
-//            int start = size - i - 16;
-//            int el = 0;
-//
-//            for (size_t row = 0; row < 4; row++)
-//            {
-//                for (size_t col = 0; col < 4; col++)
-//                {
-//                    currentMatrix[row][col] = intText[start + el];
-//                    el++;
-//                }
-//            }
-//           // DecryptCurrentMatrix(currentMatrix, key);
-//        }
-//        int resultIndex = 0;
-//        for (size_t row = 0; row < 4; row++)
-//        {
-//            for (size_t col = 0; col < 4; col++)
-//            {
-//                result[resIndex] = currentMatrix[row][col];
-//            }
-//        }
-//        char str[16];
-//       // IntMatrixToString(currentMatrix, result + resIndex);
-//    }
-//}
-
+//Encrypts Or Decrypts the text with the given key
 int* EncryptOrDecryptTheWholeText(int* text, int key[4][4], bool IsEncryption, int size) {
     int* result = new int[size]();
     int resultIndex = 0;
 
-    int matrixesCount = (size % 16 == 0) ? (size / 16) : (size / 16 + 1);
+    //Since the text is the correct format, 16 is divisible by it's size
+    int matrixesCount = (size / 16);
     
-
     for (size_t i = 0; i < matrixesCount; i++)
     {
         if (IsEncryption)
@@ -91,12 +43,7 @@ int* EncryptOrDecryptTheWholeText(int* text, int key[4][4], bool IsEncryption, i
                     index++;
                 }
             }
-            PrintMatrix(currentMatrix);
-            std::cout << "Original-------------------------";
             EncryptCurrentMatrix(currentMatrix, key);
-           /* PrintMatrix(currentMatrix);
-            std::cout << "Encrypted-------------------------";*/
-
             for (size_t row = 0; row < 4; row++)
             {
                 for (size_t col = 0; col < 4; col++)
@@ -118,13 +65,19 @@ int* EncryptOrDecryptTheWholeText(int* text, int key[4][4], bool IsEncryption, i
                     currentMatrix[row][col] = text[start + index];
                     index++;
                 }
-            }/*
-            PrintMatrix(currentMatrix);
-            std::cout << "ToDecrypt-------------------------";*/
-
+            }
+           
             DecryptCurrentMatrix(currentMatrix, key);
-            PrintMatrix(currentMatrix);
-            std::cout << "Decrypted-------------------------";
+            resultIndex = 0;
+            for (size_t row = 0; row < 4; row++)
+            {
+                
+                for (size_t col = 0; col < 4; col++)
+                {
+                    result[start + resultIndex] = currentMatrix[row][col];
+                    resultIndex++;
+                }
+            }
         }
         
     }
@@ -134,11 +87,45 @@ int* EncryptOrDecryptTheWholeText(int* text, int key[4][4], bool IsEncryption, i
 
 int main()
 {
-    int text[32] = {  28 ,93, 122, 139, 161, 122, 115, 93, 161, 151, 93, 106, 123, 36 ,142, 23, 205, 142, 64, 23, 40, 64 ,115 ,142, 40, 252, 142, 36, 4, 4, 4, 4 };
-    int key[4][4] = { 123, 36 ,142, 23, 205, 142, 64, 23, 40, 64 ,115 ,142, 40, 252, 142, 36 };
+    //Choose action
+    bool isEncryption = true;
+    int action = -1;
+    std::cout << "Select action: (enter 1 or 2)" << std::endl << " 1. Encryption" << std::endl << " 2. Decryption";
+    std::cin >> action;
+    while (action != 1 && action != 2)
+    {
+        std::cout << "Invalid input. Try again! ";
+        std::cin >> action;
+    }
+    if (action == 2)
+    {
+        isEncryption = false;
+    }
 
-    int* encrypted = EncryptOrDecryptTheWholeText(text, key, true, 32);
-    int* decryted = EncryptOrDecryptTheWholeText(encrypted, key, false, 32);
+    //File Reading
+    char readFileName[100], writeFileName[100], keyFileName[100];
 
+    char str[BUFFER_SIZE];
+    char keyStr[17];
+    
+    std::cout << "Enter the name of the file you want to get your text from: ";
+    std::cin >> readFileName;
+    std::cout << "Enter the name of the file you want to get your key from: ";
+    std::cin >> keyFileName;
+    
+    //Actual Decryption/Encryption
+    int size = GetArrayLen(str);
+    size += (size % 16);
+    int* text = new int[size];
+    CharArrToIntArray(str, text);
+    int key[4][4];
+    CharArrToIntMatrix(keyStr, key);
 
+    int* encrypted = EncryptOrDecryptTheWholeText(text, key, isEncryption, size);
+    size = 16;
+    int* decryted = EncryptOrDecryptTheWholeText(encrypted, key, isEncryption, size);
+    char* result = new char[16];
+    
+    IntMatrixToCharArray(decryted, result, size);
+    //TODO: Save result in writeFileName
 }
