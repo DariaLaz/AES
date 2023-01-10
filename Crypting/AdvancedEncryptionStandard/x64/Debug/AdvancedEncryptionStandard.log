@@ -1,7 +1,3 @@
 ﻿  AdvancedEncryptionStandard.cpp
-E:\SU\I курс\I семестър\Увод в програмирането\практикум\Проект\AES\AES\Crypting\AdvancedEncryptionStandard\AdvancedEncryptionStandard.cpp(36,12): error C2372: 'result': redefinition; different types of indirection
-E:\SU\I курс\I семестър\Увод в програмирането\практикум\Проект\AES\AES\Crypting\AdvancedEncryptionStandard\AdvancedEncryptionStandard.cpp(33): message : see declaration of 'result'
-  InputOutputFormat.cpp
-E:\SU\I курс\I семестър\Увод в програмирането\практикум\Проект\AES\AES\Crypting\AdvancedEncryptionStandard\InputOutputFormat.cpp(31,7): warning C4101: 'currentMatrix': unreferenced local variable
-  Generating Code...
-E:\SU\I курс\I семестър\Увод в програмирането\практикум\Проект\AES\AES\Crypting\AdvancedEncryptionStandard\InputOutputFormat.cpp(38): error C4700: uninitialized local variable 'result' used
+E:\SU\I курс\I семестър\Увод в програмирането\практикум\Проект\AES\AES\Crypting\AdvancedEncryptionStandard\AdvancedEncryptionStandard.cpp(113,44): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  AdvancedEncryptionStandard.vcxproj -> E:\SU\I курс\I семестър\Увод в програмирането\практикум\Проект\AES\AES\Crypting\x64\Debug\AdvancedEncryptionStandard.exe

@@ -1,4 +1,7 @@
 #include "Encrypt.h"
+#include <iostream>
+
+
 
 //KEY SHEDULE/EXPANSION
 //Rot Word
@@ -63,6 +66,8 @@ void AddRoundKey(int key[4][4], int text[4][4]) {
     {
         for (size_t col = 0; col < 4; col++)
         {
+            int a = key[row][col];
+            int b = text[row][col];
             text[row][col] ^= key[row][col];
         }
         
@@ -110,7 +115,7 @@ void MixSingleColumn(int m1[4]) {
         int currentResult = 0;
         for (size_t col = 0; col < 4; col++)
         {
-            currentResult ^= (m1[row] + m2[row][col]);
+            currentResult ^= (m1[row] ^ m2[row][col]);
         }
         m1[row] ^= (currentResult);
     }
@@ -124,31 +129,30 @@ void MixColumns(int text[4][4]) {
 }
 
 void EncryptCurrentMatrix(int text[4][4], int key[4][4]) {
-    ////3. Add Round Key
-    //AddRoundKey(key, text);
-    ////2. Key Expansion
-    //KeyExpansion(key, 0);
+    //3. Add Round Key
+    AddRoundKey(key, text);
+    //2. Key Expansion
+    KeyExpansion(key, 0);
 
-    //for (size_t i = 0; i < 9; i++)
-    //{
-    //    //4. Byte substitution
-    //    ByteSubstitution(text);
-    //    //5. Shift Rows
-    //    ShiftRows(text);
-    //    //6. Mixing columns
-    //    MixColumns(text);
-    //    //3. Add Round Key
-    //    AddRoundKey(key, text);
-    //    //2. Key Expansion
-    //    KeyExpansion(key, i + 1);
-    //}
-    ////4. Byte substitution
-    //ByteSubstitution(text);
-    ////5. Shift Rows
-    //ShiftRows(text);
-    ////3. Add Round Key
-    //AddRoundKey(key, text);
-    MixColumns(text);
+    for (size_t i = 0; i < 9; i++)
+    {
+        //4. Byte substitution
+        ByteSubstitution(text);
+        //5. Shift Rows
+        ShiftRows(text);
+        //6. Mixing columns
+        MixColumns(text);
+        //3. Add Round Key
+        AddRoundKey(key, text);
+        //2. Key Expansion
+        KeyExpansion(key, i + 1);
+    }
+    //4. Byte substitution
+    ByteSubstitution(text);
+    //5. Shift Rows
+    ShiftRows(text);
+    //3. Add Round Key
+    AddRoundKey(key, text);
 
 }
 
