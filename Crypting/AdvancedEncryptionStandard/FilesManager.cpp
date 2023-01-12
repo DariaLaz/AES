@@ -74,13 +74,20 @@ char* ReadTextFromText(char* path) {
 	return text;
 }
 
-int* ReadIntArrayFromFile(char* path, int size ) {
-	int* arr = new int[size];
+int* ReadIntArrayFromFile(char* path, int& size ) {
+	size = 0;
+	int arr[1024];
 	std::ifstream in(path);
-	for (size_t i = 0; i < size; i++)
+	while (!in.eof())
+	{
+		in >> arr[size];
+		size++;
+	}
+	size--;
+	/*for (size_t i = 0; i < size; i++)
 	{
 		in >> arr[i];
-	}
+	}*/
 	in.close();
 	return arr;
 }

@@ -50,22 +50,37 @@ void KeyToIntMatrix(char* key, int intKey[4][4]) {
 		}
 	}
 }
-
-void CharArrToIntArray(char* text, int* result) {
-	int len = GetArrayLen(text);
-	size_t i = 0;
-	for (i = 0; i < len; i++)
+void CharKeyToIntMatrixKey(char* text, int result[4][4]) {
+    int i = 0;
+	for (size_t row = 0; row < 4; row++)
 	{
-		result[i] = text[i];
-	}
-	int paddingNum = (16 - len % 16);
-	while (len % 16 != 0)
-	{
-		result[i] = paddingNum;
-		i++;
-		len++;
+		for (size_t col = 0; col < 4; col++)
+		{
+			result[row][col] = text[i] - '0';
+			i++;
+		}
 	}
 }
+int* CharArrayToIntArray(char* text, int& size) {
+	size = GetArrayLen(text);
+
+	int* result = new int[size % 16 == 0 ? size : size + (16 - size % 16)];
+	int i = 0;
+	while (text[i] != '\0')
+	{
+		result[i] = text[i];
+		i++;
+	}
+	int paddingNum = 16 - (size % 16);
+	while (size % 16 != 0)
+	{
+		result[size] = paddingNum;
+		size++;
+	}
+	return result;
+}
+
+
 void CharArrToIntMatrix(char* text, int matrix[4][4]) {
 	int i = 0;
 	for (size_t row = 0; row < 4; row++)
@@ -77,9 +92,48 @@ void CharArrToIntMatrix(char* text, int matrix[4][4]) {
 		}
 	}
 }
-void IntMatrixToCharArray(int* decryted, char* result, int size) {
+
+
+
+char* IntMatrixToCharNum(int key[4][4]) {
+	char result[64];
+	int i = 0;
+	for (size_t row = 0; row < 4; row++)
+	{
+		for (size_t col = 0; col < 4; col++)
+		{
+			result[i] = 0;
+			int k = key[row][col];
+			while (k % 10 != 0)
+			{
+				result[i] *= 10 + (k% 10);
+				k /= 10;
+			}
+			result[i] += '0';
+			i++;
+			result[i] = ' ';
+			i++;
+		}
+
+	}
+	return result;
+}
+
+char* IntArrayToCharArr(int* arr, int size) {
+	char* result = new char[size];
+	for (size_t i = 0; i < size; i++)
+	{
+		result[i] = arr[i] + '0';
+	}
+	return result;
+}
+
+
+
+void IntMatrixToCharArray(int* decryted, char* result, int& size) {
 	int lastDigit = decryted[size - 1];
 	bool shouldCut = true;
+
 	for (size_t i = size - 1; i > size - lastDigit + 1; i--)
 	{
 		if (decryted[i] != decryted[i - 1])
@@ -88,13 +142,17 @@ void IntMatrixToCharArray(int* decryted, char* result, int size) {
 			break;
 		}
 	}
+	if (lastDigit == 0 || lastDigit > size)
+	{
+		shouldCut = false;
+	}
 	if (shouldCut)
 	{
 		size -= lastDigit;
 	}
 	for (size_t i = 0; i < size; i++)
 	{
-		result[i] = (int)decryted[i];
+		result[i] = (decryted[i]);
 	}
 	result[size] = '\0';
 }
@@ -102,8 +160,7 @@ void clearConsole() {
 	std::cout << "\033[;H"; // Moves cursor to the top left
 	std::cout << "\033[J"; // Clears the console
 }
-
-void IntMatrixToIntArray(int matrix[4][4], int* arr) {
+void IntMatrixToIntArray(int matrix[4][4], int arr[16]) {
 	int i = 0;
 	for (size_t row = 0; row < 4; row++)
 	{
