@@ -155,7 +155,7 @@ bool IsEncryptionInput() {
 }
 bool IsValidFileName(char* name, const char* folder) {
 	if ((folder == "Keys" && GetArrayLen(name) != 16)
-		|| (folder != "Keys" && name[BUFFER_SIZE] != '\0'))
+		|| (folder != "Keys" && name[BUFFER_SIZE - 1] != '\0'))
 	{
 		return false;
 	}

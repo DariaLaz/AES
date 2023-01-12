@@ -89,6 +89,9 @@ void GetFileName(char* fileName, const char* folder, bool IsReading) {
     std::cin >> fileName;
     bool d = IsFileExisting(fileName, folder);
 
+    bool k = IsFileExisting(fileName, folder);
+    bool s = IsValidFileName(fileName, folder);
+
     while (!IsValidFileName(fileName, folder)
         || (IsReading && !IsFileExisting(fileName, folder))
         || (!IsReading && IsFileExisting(fileName, folder)))
