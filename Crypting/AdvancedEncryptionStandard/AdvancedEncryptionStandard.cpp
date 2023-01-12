@@ -94,7 +94,7 @@ void GetFileName(char* fileName, const char* folder, bool IsReading) {
 
     while (!IsValidFileName(fileName, folder)
         || (IsReading && !IsFileExisting(fileName, folder))
-        || (!IsReading && IsFileExisting(fileName, folder)))
+        || (!IsReading && IsFileExisting(fileName, folder) && folder != "Keys"))
     {
         std::cout << "Invalid file name! Try again: ";
         std::cin >> fileName;
@@ -109,18 +109,18 @@ int main()
         bool isEncryption = IsEncryptionInput();
 
         //File Reading
-        char readFileName[BUFFER_SIZE];
-        char writeFileName[BUFFER_SIZE];
+        char readFileName[FILENAME_SIZE];
+        char writeFileName[FILENAME_SIZE];
         char keyFileName[17];
-        readFileName[BUFFER_SIZE - 1] = '\0';
-        writeFileName[BUFFER_SIZE - 1] = '\0';
+        readFileName[FILENAME_SIZE - 1] = '\0';
+        writeFileName[FILENAME_SIZE - 1] = '\0';
         keyFileName[16] = '\0';
 
 
         std::cout << "Enter the name of the file you want to get your text from: ";
         GetFileName(readFileName, (!isEncryption ? "Encrypted" : "Decrypted"), true);
 
-        std::cout << "Enter the your key: ";
+        std::cout << "Enter your key: ";
         GetFileName(keyFileName, "Keys", (isEncryption ? false : true));
 
         std::cout << "Enter the name of the file you want to save your text in: ";
@@ -137,7 +137,6 @@ int main()
         char* text = ReadTextFromText(readPath);
         int size = 0;
         int key[4][4];
-
 
         if (isEncryption)
         {
@@ -164,22 +163,10 @@ int main()
             WriteTextInFile(result, writePath);
         }
 
-
-        std::cout << "Do you want to continue? (yes/no) ";
-        char ans[4];
-        std::cin >> ans;
-        ToLower(ans);
-        while (!(CompareCharArrays(ans, "yes")) && !(CompareCharArrays(ans, "no")))
-        {
-            std::cout << "Invalid answear. Try again ";
-
-            std::cin >> ans;
-            ToLower(ans);
-        }
-
-        if ((CompareCharArrays(ans, "no")))
+        if (ShouldStop())
         {
             return 0;
         }
+        clearConsole();
     }
 }

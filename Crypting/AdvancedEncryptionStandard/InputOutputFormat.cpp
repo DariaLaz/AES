@@ -140,7 +140,7 @@ void IntArrayToIntMatrix(int* arr, int matrix[4][4]) {
 //Input
 bool IsEncryptionInput() {
 	int action;
-	std::cout << "Select action: (enter 1 or 2)" << std::endl << " 1. Encryption" << std::endl << " 2. Decryption";
+	std::cout << "Select action: (enter 1 or 2)" << std::endl << " 1. Encryption" << std::endl << " 2. Decryption" << std::endl;
 	std::cin >> action;
 	while (action != 1 && action != 2)
 	{
@@ -155,7 +155,7 @@ bool IsEncryptionInput() {
 }
 bool IsValidFileName(char* name, const char* folder) {
 	if ((folder == "Keys" && GetArrayLen(name) != 16)
-		|| (folder != "Keys" && name[BUFFER_SIZE - 1] != '\0'))
+		|| (folder != "Keys" && name[FILENAME_SIZE - 1] != '\0'))
 	{
 		return false;
 	}
@@ -196,4 +196,19 @@ bool CompareCharArrays(char* arr1, const char* arr2) {
 		i++;
 	}
 	return (arr1[i] == '\0' && arr2[i] == '\0');
+}
+bool ShouldStop() {
+	std::cout << "Do you want to continue? (yes/no) ";
+	char ans[4];
+	std::cin >> ans;
+	ToLower(ans);
+	while (!(CompareCharArrays(ans, "yes")) && !(CompareCharArrays(ans, "no")))
+	{
+		std::cout << "Invalid answear. Try again ";
+
+		std::cin >> ans;
+		ToLower(ans);
+	}
+
+	return (CompareCharArrays(ans, "no"));
 }

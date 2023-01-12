@@ -1,6 +1,8 @@
 #pragma once
 #include <iostream>
+const int FILENAME_SIZE = 30;
 const int BUFFER_SIZE = 1024;
+
 
 int GetArrayLen(char* str);
 void IntMatrixToCharArray(int* decryted, char* result, int& size);
@@ -19,3 +21,5 @@ bool IsValidFileName(char* name, const char* folder);
 void ToLower(char* a);
 
 bool CompareCharArrays(char* arr1, const char* arr2);
+
+bool ShouldStop();
