@@ -125,61 +125,37 @@ int* EncryptOrDecryptTheWholeText(int* text, int key[4][4], bool IsEncryption, i
     return result;
 }
 
-bool isValid(char* text) {
-    return true;
-}
+
+
+
 int main()
 {
-    
-
-   /* char text[] = "a  b c sdfsdjzfisdzjvhs";
-    char keyStr[] = "rtghyjukiohgfdsr";
-    int key[4][4];
-    CharArrToIntMatrix(keyStr, key);
-    int size = 0;
-    int* textToIntArr = CharArrayToIntArray(text, size);
-
-    int* ecrypted = EncryptOrDecryptTheWholeText(textToIntArr, key, true, size);
-    int* crypted = EncryptOrDecryptTheWholeText(ecrypted, key, false, size);
-
-    char* result = IntMatrixToCharArray(crypted, size);
-    std::cout << result;*/
-
-
     //Choose action
     bool isEncryption = IsEncryptionInput();
 
     //File Reading
-    char readFileName[1025];
-    char writeFileName[1025];
+    char readFileName[BUFFER_SIZE];
+    char writeFileName[BUFFER_SIZE];
     char keyFileName[17];
-    readFileName[1024] = '\0';
-    writeFileName[1024] = '\0';
+    readFileName[BUFFER_SIZE-1] = '\0';
+    writeFileName[BUFFER_SIZE-1] = '\0';
     keyFileName[16] = '\0';
 
     
     std::cout << "Enter the name of the file you want to get your text from: ";
-    std::cin >> readFileName;
-    while (!isValid(readFileName))
-    {
-        std::cout << "Invalid file name! Try again: ";
-        std::cin >> readFileName;
-    }
+
+    GetFileName(readFileName, (!isEncryption ? "Encrypted" : "Decrypted"), true);
+
     std::cout << "Enter the your key: ";
-    std::cin >> keyFileName;
-    while (!isValid(readFileName))
-    {
-        std::cout << "Invalid key! Try again: ";
-        std::cin >> keyFileName;
-    }
+
+    GetFileName(keyFileName, "Keys", (isEncryption ? false : true));
+
     std::cout << "Enter the name of the file you want to save your text in: ";
-    std::cin >> writeFileName;
-    while (!isValid(writeFileName))
-    {
-        std::cout << "Invalid file name! Try again: ";
-        std::cin >> writeFileName;
-    }
-    char readPath[50];
+    GetFileName(writeFileName, (isEncryption ? "Encrypted" : "Decrypted"), false);
+
+
+
+    /*char readPath[50];
     GetPath((!isEncryption ? "Encrypted" : "Decrypted"), readFileName, readPath);
     char keyPath[50];
     GetPath("Keys", keyFileName, keyPath);
@@ -215,5 +191,5 @@ int main()
         char* result = new char[size];
         IntMatrixToCharArray(crypted,result, size);
         WriteTextInFile(result, writePath); 
-    }
+    }*/
 }

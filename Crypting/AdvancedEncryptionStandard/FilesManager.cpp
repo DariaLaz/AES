@@ -92,14 +92,12 @@ int* ReadIntArrayFromFile(char* path, int& size ) {
 	return arr;
 }
 
-void IntArrayToIntMatrix(int* arr, int matrix[4][4]) {
-	int i = 0;
-	for (size_t row = 0; row < 4; row++)
-	{
-		for (size_t col = 0; col < 4; col++)
-		{
-			matrix[row][col] = arr[i];
-			i++;
-		}
-	}
+bool IsFileExisting(char* name, const char* folder) {
+	char path[100];
+	GetPath(folder, name, path);
+	std::ifstream file(path);
+	if (!file)          
+		return false;   
+	else                
+		return true;
 }

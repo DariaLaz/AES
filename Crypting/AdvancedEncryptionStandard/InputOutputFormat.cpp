@@ -197,3 +197,37 @@ bool IsEncryptionInput() {
 	}
 	return true;
 }
+
+bool IsValidFileName(char* name, const char* folder) {
+	if ((folder == "Keys" && GetArrayLen(name) != 16)
+		|| (folder != "Keys" && name[BUFFER_SIZE] != '\0'))
+	{
+		return false;
+	}
+	int i = 0;
+
+	while (name[i] != '\0')
+	{
+		if (!((name[i] >= 'a' && name[i] <= 'z')
+			|| (name[i] >= 'A' && name[i] <= 'Z')
+			|| (name[i] >= '0' && name[i] <= '9')))
+		{
+			return false;
+		}
+		i++;
+	}
+	return true;
+}
+
+void GetFileName(char* fileName, const char* folder, bool IsReading) {
+	std::cin >> fileName;
+	bool d = IsFileExisting(fileName, folder);
+
+	while (!IsValidFileName(fileName, folder)
+		|| (IsReading && !IsFileExisting(fileName, folder))
+		|| (!IsReading && IsFileExisting(fileName, folder)))
+	{
+		std::cout << "Invalid file name! Try again: ";
+		std::cin >> fileName;
+	}
+}
