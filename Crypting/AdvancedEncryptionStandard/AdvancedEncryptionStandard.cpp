@@ -214,6 +214,6 @@ int main()
         int* crypted = EncryptOrDecryptTheWholeText(textToIntArr, key, false, size);
         char* result = new char[size];
         IntMatrixToCharArray(crypted,result, size);
-        WriteTextInFile(result, writePath);
+        WriteTextInFile(result, writePath); 
     }
 }
