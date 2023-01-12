@@ -16,8 +16,6 @@
 #include "Decrypt.h"
 #include <iostream>
 
-
-
 //REVERSED RIJNDAEL KEY SHEDULE/EXPANSION
 static const int SBoxDecrypt[256] = {
     0x52, 0x09, 0x6a, 0xd5, 0x30, 0x36, 0xa5, 0x38, 0xbf, 0x40, 0xa3, 0x9e, 0x81, 0xf3, 0xd7, 0xfb,
@@ -74,8 +72,6 @@ void ReverseKeyExtension(int key[4][4], int round = -1) {
     }
     DecryptRijndaelKeyShedule(key);
 }
-
-
 
 //REMOVE ROUND KEY
 void RemoveRoundKey(int key[4][4], int text[4][4]) {

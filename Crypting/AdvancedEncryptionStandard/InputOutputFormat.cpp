@@ -24,32 +24,6 @@ int GetArrayLen(char* str) {
 	return counter;
 }
 
-void TextToIntMatrixes(char* text, int* matrix) {
-	int size = GetArrayLen(text);
-	int textIndex = 0;
-	size_t i = 0;
-	for (i = 0; i < size; i++)
-	{
-		matrix[i] = (int)text[i];
-	}
-	int paddingNum = (size % 16);
-	while (size % 16 != 0)
-	{
-		matrix[i] = paddingNum;
-		i++;
-	}
-}
-void KeyToIntMatrix(char* key, int intKey[4][4]) {
-	int i = 0;
-	for (size_t row = 0; row < 4; row++)
-	{
-		for (size_t col = 0; col < 4; col++)
-		{
-			intKey[row][col] = key[i];
-			i++;
-		}
-	}
-}
 void CharKeyToIntMatrixKey(char* text, int result[4][4]) {
     int i = 0;
 	for (size_t row = 0; row < 4; row++)
@@ -79,22 +53,6 @@ int* CharArrayToIntArray(char* text, int& size) {
 	}
 	return result;
 }
-
-
-void CharArrToIntMatrix(char* text, int matrix[4][4]) {
-	int i = 0;
-	for (size_t row = 0; row < 4; row++)
-	{
-		for (size_t col = 0; col < 4; col++)
-		{
-			matrix[row][col] = text[i];
-			i++;
-		}
-	}
-}
-
-
-
 char* IntMatrixToCharNum(int key[4][4]) {
 	char result[64];
 	int i = 0;
@@ -118,7 +76,6 @@ char* IntMatrixToCharNum(int key[4][4]) {
 	}
 	return result;
 }
-
 char* IntArrayToCharArr(int* arr, int size) {
 	char* result = new char[size];
 	for (size_t i = 0; i < size; i++)
@@ -127,9 +84,6 @@ char* IntArrayToCharArr(int* arr, int size) {
 	}
 	return result;
 }
-
-
-
 void IntMatrixToCharArray(int* decryted, char* result, int& size) {
 	int lastDigit = decryted[size - 1];
 	bool shouldCut = true;
@@ -171,7 +125,7 @@ void IntMatrixToIntArray(int matrix[4][4], int arr[16]) {
 		}
 	}
 }
-void CharArrayToIntMatric(int matrix[4][4], char* arr) {
+void IntArrayToIntMatrix(int* arr, int matrix[4][4]) {
 	int i = 0;
 	for (size_t row = 0; row < 4; row++)
 	{
@@ -182,6 +136,8 @@ void CharArrayToIntMatric(int matrix[4][4], char* arr) {
 		}
 	}
 }
+
+//Input
 bool IsEncryptionInput() {
 	int action;
 	std::cout << "Select action: (enter 1 or 2)" << std::endl << " 1. Encryption" << std::endl << " 2. Decryption";
@@ -197,7 +153,6 @@ bool IsEncryptionInput() {
 	}
 	return true;
 }
-
 bool IsValidFileName(char* name, const char* folder) {
 	if ((folder == "Keys" && GetArrayLen(name) != 16)
 		|| (folder != "Keys" && name[BUFFER_SIZE] != '\0'))
@@ -217,17 +172,4 @@ bool IsValidFileName(char* name, const char* folder) {
 		i++;
 	}
 	return true;
-}
-
-void GetFileName(char* fileName, const char* folder, bool IsReading) {
-	std::cin >> fileName;
-	bool d = IsFileExisting(fileName, folder);
-
-	while (!IsValidFileName(fileName, folder)
-		|| (IsReading && !IsFileExisting(fileName, folder))
-		|| (!IsReading && IsFileExisting(fileName, folder)))
-	{
-		std::cout << "Invalid file name! Try again: ";
-		std::cin >> fileName;
-	}
 }

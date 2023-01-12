@@ -19,47 +19,6 @@
 #include "InputOutputFormat.h"
 #include "FilesManager.h"
 
-const int BUFFER_SIZE = 1024;
-void PrintMatrix(char** matrix) {
-    for (size_t i = 0; i < 4; i++)
-    {
-        for (size_t j = 0; j < 4; j++)
-        {
-            std::cout << matrix[i][j] << " ";
-        }
-        std::cout << std::endl;
-    }
-}
-void PrintMatrix(char matrix[4][4]) {
-    for (size_t i = 0; i < 4; i++)
-    {
-        for (size_t j = 0; j < 4; j++)
-        {
-            std::cout << matrix[i][j] << " ";
-        }
-        std::cout << std::endl;
-    }
-}
-void PrintMatrix(int** matrix) {
-    for (size_t i = 0; i < 4; i++)
-    {
-        for (size_t j = 0; j < 4; j++)
-        {
-            std::cout << matrix[i][j] << " ";
-        }
-        std::cout << std::endl;
-    }
-}
-void PrintMatrix(int matrix[4][4]) {
-    for (size_t i = 0; i < 4; i++)
-    {
-        for (size_t j = 0; j < 4; j++)
-        {
-            std::cout << matrix[i][j] << " ";
-        }
-        std::cout << std::endl;
-    }
-}
 
 //Encrypts Or Decrypts the text with the given key
 int* EncryptOrDecryptTheWholeText(int* text, int key[4][4], bool IsEncryption, int size) {
@@ -125,8 +84,19 @@ int* EncryptOrDecryptTheWholeText(int* text, int key[4][4], bool IsEncryption, i
     return result;
 }
 
+//Input
+void GetFileName(char* fileName, const char* folder, bool IsReading) {
+    std::cin >> fileName;
+    bool d = IsFileExisting(fileName, folder);
 
-
+    while (!IsValidFileName(fileName, folder)
+        || (IsReading && !IsFileExisting(fileName, folder))
+        || (!IsReading && IsFileExisting(fileName, folder)))
+    {
+        std::cout << "Invalid file name! Try again: ";
+        std::cin >> fileName;
+    }
+}
 
 int main()
 {
@@ -143,53 +113,49 @@ int main()
 
     
     std::cout << "Enter the name of the file you want to get your text from: ";
-
     GetFileName(readFileName, (!isEncryption ? "Encrypted" : "Decrypted"), true);
 
     std::cout << "Enter the your key: ";
-
     GetFileName(keyFileName, "Keys", (isEncryption ? false : true));
 
     std::cout << "Enter the name of the file you want to save your text in: ";
     GetFileName(writeFileName, (isEncryption ? "Encrypted" : "Decrypted"), false);
 
-
-
-    /*char readPath[50];
+    char readPath[50];
     GetPath((!isEncryption ? "Encrypted" : "Decrypted"), readFileName, readPath);
     char keyPath[50];
     GetPath("Keys", keyFileName, keyPath);
     char writePath[50];
     GetPath((isEncryption ? "Encrypted" : "Decrypted"), writeFileName, writePath);
     
+    //Text to be decrypted/encrypted
     char* text = ReadTextFromText(readPath);
+    int size = 0;
+    int key[4][4];
+
 
     if (isEncryption)
     {
-        int size = 0;
         int* textToIntArr = CharArrayToIntArray(text, size);
         char* keyStr = keyFileName;
-        int key[4][4];
         int keySize = 16;
         CharKeyToIntMatrixKey(keyStr, key);
         int* ecrypted = EncryptOrDecryptTheWholeText(textToIntArr, key, true, size);
         int keyArr[16]; 
         IntMatrixToIntArray(key, keyArr);
-        PrintMatrix(key);
         WriteTextInFile(keyArr, keyPath, keySize);
         WriteTextInFile(ecrypted, writePath, size);
     }
     else
     {
-        int size = 0;
         int keySize = 0;
         int* keyArr = ReadIntArrayFromFile(keyPath, keySize);
-        int key[4][4];
+        
         IntArrayToIntMatrix(keyArr, key);
         int* textToIntArr = ReadIntArrayFromFile(readPath, size);
         int* crypted = EncryptOrDecryptTheWholeText(textToIntArr, key, false, size);
         char* result = new char[size];
         IntMatrixToCharArray(crypted,result, size);
         WriteTextInFile(result, writePath); 
-    }*/
+    }
 }

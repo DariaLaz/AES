@@ -1,4 +1,6 @@
-﻿  FilesManager.cpp
-E:\SU\I курс\I семестър\Увод в програмирането\практикум\Проект\AES\AES\Crypting\AdvancedEncryptionStandard\FilesManager.cpp(74): warning C4172: returning address of local variable or temporary: text
-E:\SU\I курс\I семестър\Увод в програмирането\практикум\Проект\AES\AES\Crypting\AdvancedEncryptionStandard\FilesManager.cpp(92): warning C4172: returning address of local variable or temporary: arr
+﻿  AdvancedEncryptionStandard.cpp
+E:\SU\I курс\I семестър\Увод в програмирането\практикум\Проект\AES\AES\Crypting\AdvancedEncryptionStandard\AdvancedEncryptionStandard.cpp(60,44): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  InputOutputFormat.cpp
+  Generating Code...
+E:\SU\I курс\I семестър\Увод в програмирането\практикум\Проект\AES\AES\Crypting\AdvancedEncryptionStandard\InputOutputFormat.cpp(77): warning C4172: returning address of local variable or temporary: result
   AdvancedEncryptionStandard.vcxproj -> E:\SU\I курс\I семестър\Увод в програмирането\практикум\Проект\AES\AES\Crypting\x64\Debug\AdvancedEncryptionStandard.exe
