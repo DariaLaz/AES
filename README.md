@@ -1,4 +1,4 @@
-# AES - 128
+# AES 
 <h2>Introduction</h2>
 This is an implementation of the AES algorithm for encryption and decryption of data in C++.
 <h2>How does it work?</h2>
