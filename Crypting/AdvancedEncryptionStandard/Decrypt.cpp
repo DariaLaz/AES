@@ -165,5 +165,3 @@ void DecryptCurrentMatrix(int text[4][4], int key[4][4]) {
     RemoveRoundKey(key, text);
 }
 
-
-
