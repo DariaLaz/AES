@@ -173,3 +173,27 @@ bool IsValidFileName(char* name, const char* folder) {
 	}
 	return true;
 }
+
+void ToLower(char* a) {
+	int i = 0;
+	while (a[i] != '\0')
+	{
+		if (a[i] >= 'A' && a[i] <= 'Z')
+		{
+			a[i] += ('a' - 'A');
+		}
+		i++;
+	}
+}
+bool CompareCharArrays(char* arr1, const char* arr2) {
+	int i = 0;
+	while (arr1[i] != '\0' && arr2[i] != '\0')
+	{
+		if (arr1[i] != arr2[i])
+		{
+			return false;
+		}
+		i++;
+	}
+	return (arr1[i] == '\0' && arr2[i] == '\0');
+}

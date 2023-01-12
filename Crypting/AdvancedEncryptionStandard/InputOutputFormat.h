@@ -15,3 +15,7 @@ char* IntArrayToCharArr(int* arr, int size);
 void IntArrayToIntMatrix(int* arr, int matrix[4][4]);
 
 bool IsValidFileName(char* name, const char* folder);
+
+void ToLower(char* a);
+
+bool CompareCharArrays(char* arr1, const char* arr2);

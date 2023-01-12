@@ -100,62 +100,83 @@ void GetFileName(char* fileName, const char* folder, bool IsReading) {
 
 int main()
 {
-    //Choose action
-    bool isEncryption = IsEncryptionInput();
-
-    //File Reading
-    char readFileName[BUFFER_SIZE];
-    char writeFileName[BUFFER_SIZE];
-    char keyFileName[17];
-    readFileName[BUFFER_SIZE-1] = '\0';
-    writeFileName[BUFFER_SIZE-1] = '\0';
-    keyFileName[16] = '\0';
-
-    
-    std::cout << "Enter the name of the file you want to get your text from: ";
-    GetFileName(readFileName, (!isEncryption ? "Encrypted" : "Decrypted"), true);
-
-    std::cout << "Enter the your key: ";
-    GetFileName(keyFileName, "Keys", (isEncryption ? false : true));
-
-    std::cout << "Enter the name of the file you want to save your text in: ";
-    GetFileName(writeFileName, (isEncryption ? "Encrypted" : "Decrypted"), false);
-
-    char readPath[50];
-    GetPath((!isEncryption ? "Encrypted" : "Decrypted"), readFileName, readPath);
-    char keyPath[50];
-    GetPath("Keys", keyFileName, keyPath);
-    char writePath[50];
-    GetPath((isEncryption ? "Encrypted" : "Decrypted"), writeFileName, writePath);
-    
-    //Text to be decrypted/encrypted
-    char* text = ReadTextFromText(readPath);
-    int size = 0;
-    int key[4][4];
-
-
-    if (isEncryption)
+    while (true)
     {
-        int* textToIntArr = CharArrayToIntArray(text, size);
-        char* keyStr = keyFileName;
-        int keySize = 16;
-        CharKeyToIntMatrixKey(keyStr, key);
-        int* ecrypted = EncryptOrDecryptTheWholeText(textToIntArr, key, true, size);
-        int keyArr[16]; 
-        IntMatrixToIntArray(key, keyArr);
-        WriteTextInFile(keyArr, keyPath, keySize);
-        WriteTextInFile(ecrypted, writePath, size);
-    }
-    else
-    {
-        int keySize = 0;
-        int* keyArr = ReadIntArrayFromFile(keyPath, keySize);
-        
-        IntArrayToIntMatrix(keyArr, key);
-        int* textToIntArr = ReadIntArrayFromFile(readPath, size);
-        int* crypted = EncryptOrDecryptTheWholeText(textToIntArr, key, false, size);
-        char* result = new char[size];
-        IntMatrixToCharArray(crypted,result, size);
-        WriteTextInFile(result, writePath); 
+        //Choose action
+        bool isEncryption = IsEncryptionInput();
+
+        //File Reading
+        char readFileName[BUFFER_SIZE];
+        char writeFileName[BUFFER_SIZE];
+        char keyFileName[17];
+        readFileName[BUFFER_SIZE - 1] = '\0';
+        writeFileName[BUFFER_SIZE - 1] = '\0';
+        keyFileName[16] = '\0';
+
+
+        std::cout << "Enter the name of the file you want to get your text from: ";
+        GetFileName(readFileName, (!isEncryption ? "Encrypted" : "Decrypted"), true);
+
+        std::cout << "Enter the your key: ";
+        GetFileName(keyFileName, "Keys", (isEncryption ? false : true));
+
+        std::cout << "Enter the name of the file you want to save your text in: ";
+        GetFileName(writeFileName, (isEncryption ? "Encrypted" : "Decrypted"), false);
+
+        char readPath[50];
+        GetPath((!isEncryption ? "Encrypted" : "Decrypted"), readFileName, readPath);
+        char keyPath[50];
+        GetPath("Keys", keyFileName, keyPath);
+        char writePath[50];
+        GetPath((isEncryption ? "Encrypted" : "Decrypted"), writeFileName, writePath);
+
+        //Text to be decrypted/encrypted
+        char* text = ReadTextFromText(readPath);
+        int size = 0;
+        int key[4][4];
+
+
+        if (isEncryption)
+        {
+            int* textToIntArr = CharArrayToIntArray(text, size);
+            char* keyStr = keyFileName;
+            int keySize = 16;
+            CharKeyToIntMatrixKey(keyStr, key);
+            int* ecrypted = EncryptOrDecryptTheWholeText(textToIntArr, key, true, size);
+            int keyArr[16];
+            IntMatrixToIntArray(key, keyArr);
+            WriteTextInFile(keyArr, keyPath, keySize);
+            WriteTextInFile(ecrypted, writePath, size);
+        }
+        else
+        {
+            int keySize = 0;
+            int* keyArr = ReadIntArrayFromFile(keyPath, keySize);
+
+            IntArrayToIntMatrix(keyArr, key);
+            int* textToIntArr = ReadIntArrayFromFile(readPath, size);
+            int* crypted = EncryptOrDecryptTheWholeText(textToIntArr, key, false, size);
+            char* result = new char[size];
+            IntMatrixToCharArray(crypted, result, size);
+            WriteTextInFile(result, writePath);
+        }
+
+
+        std::cout << "Do you want to continue? (yes/no) ";
+        char ans[4];
+        std::cin >> ans;
+        ToLower(ans);
+        while (!(CompareCharArrays(ans, "yes")) && !(CompareCharArrays(ans, "no")))
+        {
+            std::cout << "Invalid answear. Try again ";
+
+            std::cin >> ans;
+            ToLower(ans);
+        }
+
+        if ((CompareCharArrays(ans, "no")))
+        {
+            return 0;
+        }
     }
 }

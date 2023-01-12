@@ -13,15 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Resource Files\Keys">
-      <UniqueIdentifier>{10647ab8-e3d3-43a4-bf8c-bf2910cb3478}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource Files\DecryptedFiles">
-      <UniqueIdentifier>{eb06542e-1243-4254-b0eb-ddbdcca3a931}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource Files\EncryptedFiles">
-      <UniqueIdentifier>{4964e3b9-ea4c-4555-acb0-b1992e62df70}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AdvancedEncryptionStandard.cpp">
