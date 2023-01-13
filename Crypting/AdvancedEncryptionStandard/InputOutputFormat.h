@@ -1,7 +1,6 @@
 #pragma once
 #include <iostream>
 const int FILENAME_SIZE = 30;
-const int BUFFER_SIZE = 1024;
 
 
 int GetArrayLen(char* str);
