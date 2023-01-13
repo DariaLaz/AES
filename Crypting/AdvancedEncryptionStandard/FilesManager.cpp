@@ -63,7 +63,7 @@ void WriteTextInFile(int* text, char* path, int size) {
 	out.close();
 }
 
-char* ReadTextFromText(char* path) {
+char* ReadTextFromFile(char* path) {
 	std::ifstream in(path);
 
 	char text[2048];

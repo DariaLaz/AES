@@ -134,7 +134,7 @@ int main()
         GetPath((isEncryption ? "Encrypted" : "Decrypted"), writeFileName, writePath);
 
         //Text to be decrypted/encrypted
-        char* text = ReadTextFromText(readPath);
+        char* text = ReadTextFromFile(readPath);
         int size = 0;
         int key[4][4];
 
@@ -144,12 +144,12 @@ int main()
             char* keyStr = keyFileName;
             int keySize = 16;
             CharKeyToIntMatrixKey(keyStr, key);
-            int* ecrypted = EncryptOrDecryptTheWholeText(textToIntArr, key, true, size);
+            int* encrypted = EncryptOrDecryptTheWholeText(textToIntArr, key, true, size);
             int keyArr[16];
             IntMatrixToIntArray(key, keyArr);
             WriteTextInFile(keyArr, keyPath, keySize);
-            WriteTextInFile(ecrypted, writePath, size);
-            delete ecrypted;
+            WriteTextInFile(encrypted, writePath, size);
+            delete encrypted;
         }
         else
         {
@@ -158,11 +158,11 @@ int main()
 
             IntArrayToIntMatrix(keyArr, key);
             int* textToIntArr = ReadIntArrayFromFile(readPath, size);
-            int* crypted = EncryptOrDecryptTheWholeText(textToIntArr, key, false, size);
+            int* decrypted = EncryptOrDecryptTheWholeText(textToIntArr, key, false, size);
             char* result = new char[size];
-            IntMatrixToCharArray(crypted, result, size);
+            IntMatrixToCharArray(decrypted, result, size);
             WriteTextInFile(result, writePath);
-            delete crypted;
+            delete decrypted;
         }
 
         if (ShouldStop())
