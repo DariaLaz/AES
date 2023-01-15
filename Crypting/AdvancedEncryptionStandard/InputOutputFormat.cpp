@@ -139,10 +139,10 @@ void IntArrayToIntMatrix(int* arr, int matrix[4][4]) {
 
 //Input
 bool IsEncryptionInput() {
-	int action;
+	char action;
 	std::cout << "Select action: (enter 1 or 2)" << std::endl << " 1. Encryption" << std::endl << " 2. Decryption" << std::endl;
 	std::cin >> action;
-	while (action != 1 && action != 2)
+	while (action != '1' && action != '2')
 	{
 		std::cout << "Invalid input. Try again! ";
 		std::cin >> action;
