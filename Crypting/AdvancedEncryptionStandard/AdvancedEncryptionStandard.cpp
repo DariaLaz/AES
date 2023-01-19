@@ -149,7 +149,7 @@ int main()
             IntMatrixToIntArray(key, keyArr);
             WriteTextInFile(keyArr, keyPath, keySize);
             WriteTextInFile(encrypted, writePath, size);
-            delete encrypted;
+            delete[] encrypted;
         }
         else
         {
@@ -162,7 +162,7 @@ int main()
             char* result = new char[size];
             IntMatrixToCharArray(decrypted, result, size);
             WriteTextInFile(result, writePath);
-            delete decrypted;
+            delete[] decrypted;
         }
 
         if (ShouldStop())
