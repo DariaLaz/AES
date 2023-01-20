@@ -19,6 +19,7 @@
 #include "InputOutputFormat.h"
 #include "FilesManager.h"
 
+int MAX_TEXT_LEN = 1024;
 
 //Encrypts Or Decrypts the text with the given key
 int* EncryptOrDecryptTheWholeText(int* text, int key[4][4], bool IsEncryption, int size) {
@@ -56,8 +57,8 @@ int* EncryptOrDecryptTheWholeText(int* text, int key[4][4], bool IsEncryption, i
         else
         {
             int currentMatrix[4][4];
-            int index = 0;
-            int start = size - (i + 1) * 16;
+            size_t index = 0;
+            size_t start = size - (i + 1) * 16;
             for (size_t row = 0; row < 4; row++)
             {
                 for (size_t col = 0; col < 4; col++)
@@ -137,6 +138,14 @@ int main()
         char* text = ReadTextFromFile(readPath);
         int size = 0;
         int key[4][4];
+
+        if (GetArrayLen(text) > MAX_TEXT_LEN)
+        {
+            std::cout << "The text is more than "<< MAX_TEXT_LEN <<" symbols. Try Again: " << std::endl;
+            clearConsole();
+
+            continue;
+        }
 
         if (isEncryption)
         {

@@ -15,6 +15,8 @@
 
 #include "InputOutputFormat.h"
 
+const int BUFF_SIZE = 10;
+
 int GetArrayLen(char* str) {
 	int counter = 0;
 	while (str[counter] != '\0')
@@ -139,19 +141,15 @@ void IntArrayToIntMatrix(int* arr, int matrix[4][4]) {
 
 //Input
 bool IsEncryptionInput() {
-	char action;
+	char action[BUFF_SIZE];
 	std::cout << "Select action: (enter 1 or 2)" << std::endl << " 1. Encryption" << std::endl << " 2. Decryption" << std::endl;
 	std::cin >> action;
-	while (action != '1' && action != '2')
+	while ((action[0] != '1' && action[0] != '2') || action[1] != '\0')
 	{
-		std::cout << "Invalid input. Try again! ";
+		std::cout << "Invalid input. Try again! " << std::endl;
 		std::cin >> action;
 	}
-	if (action == 2)
-	{
-		return false;
-	}
-	return true;
+	return action[0] == '1';
 }
 bool IsValidFileName(char* name, const char* folder) {
 	if ((folder == "Keys" && GetArrayLen(name) != 16)
